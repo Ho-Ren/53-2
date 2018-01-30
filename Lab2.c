@@ -12,10 +12,10 @@ int main(int argc, char *argv[]){
 	inputFile = fopen(argv[1], "r");
 	srchTarget = atoi(argv[2]);
 
-	char *numberStrings[10];
+	char *numberStrings[11];
 	int numElems;
 	numElems = fillArray(inputFile, numberStrings);
-	//printf("\nnumElems: %d", numElems);
+	printf("numElems: %d\n", numElems);
 
 	//---File processing is done at this point
 	//Convert to ints next
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]){
 
 	if(numElems < 11){
 		//Convert to ints here, viewArray is just for convenience
-		viewArray(numberStrings, numElems-1);
+		viewArray(numberStrings, numElems);
 	}else{
 		//Print error message and return -1 because array contained >10 numbers
 		printf("\nError! File contained more than 10 numbers");
@@ -60,7 +60,7 @@ int fillArray(FILE *processFile, char *emptyArray[]){
 	//printf("\nfileLine: %s", fileLine);
 
 	numStr = strtok(fileLine, " ");
-	//printf("\nnumStr %d: %s", counter+1, numStr);
+	//printf("\nnumStr %d: %s", counter, numStr);
 
 	while(numStr != NULL){
 		if(counter < 10){
@@ -68,9 +68,10 @@ int fillArray(FILE *processFile, char *emptyArray[]){
 		}
 		numStr = strtok(NULL, " ");
 		counter++;
+		//printf("\nnumStr %d: %s", counter, numStr);
 	}
 
-	return counter+1;
+	return counter;
 }
 
 void viewArray(char *filledArray[], int numOfElems){
@@ -78,4 +79,5 @@ void viewArray(char *filledArray[], int numOfElems){
 	for(i = 0; i < numOfElems; i++){
 		printf("\n[%d]: %s", i, filledArray[i]);
 	}
+	printf("\n");
 }

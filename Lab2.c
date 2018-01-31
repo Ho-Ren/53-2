@@ -4,6 +4,15 @@
 
 int fillArray(FILE *processFile, char *emptyArray[]);
 void viewArray(char *filledArray[], int numOfElems);
+void convertToInts(char *numberStrs[], int numOfStr, int numberInts[]);
+
+/*
+ * Specification Changes/Updates from updated PDF
+ * - no mention of returning -1 or error message when array file contains more than 10 numbers
+ * - array file will supposedly always be valid (never more than 10 numbers & no characters)
+ * - no error messages printed at any point
+ * - our error handling now pointless
+ */
 
 int main(int argc, char *argv[]){
 	FILE *inputFile;
@@ -14,6 +23,7 @@ int main(int argc, char *argv[]){
 
 	char *numberStrings[11];
 	int numElems;
+	int numberIntegers[11];
 	numElems = fillArray(inputFile, numberStrings);
 	printf("numElems: %d\n", numElems);
 
@@ -24,6 +34,7 @@ int main(int argc, char *argv[]){
 	if(numElems < 11){
 		//Convert to ints here, viewArray is just for convenience
 		viewArray(numberStrings, numElems);
+		convertToInts(numberStrings, numElems, numberIntegers);
 	}else{
 		//Print error message and return -1 because array contained >10 numbers
 		printf("\nError! File contained more than 10 numbers");
@@ -80,4 +91,15 @@ void viewArray(char *filledArray[], int numOfElems){
 		printf("\n[%d]: %s", i, filledArray[i]);
 	}
 	printf("\n");
+}
+
+void convertToInts(char *numberStrs[], int numOfStr, int numberInts[]){
+	int i;
+	char *currentNum;
+	for(i = 0; i < numOfStr; i++){
+		currentNum = strdup(numberStrs[i]);
+		printf("String to be converted: %s\n", currentNum);
+		numberInts[i] = atoi(currentNum);
+		printf("Conversion success: numberInts[%d]: %d\n", i, numberInts[i]);
+	}
 }

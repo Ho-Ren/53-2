@@ -27,21 +27,14 @@ int main(int argc, char *argv[]){
 	int numberIntegers[11];
 	numElems = fillArray(inputFile, numberStrings);
 	printf("numElems: %d\n", numElems);
-
+	viewArray(numberStrings, numElems);
 	//---File processing is done at this point
-	//Convert to ints next
-	//Fork until single number, compare, then return result
 
-	if(numElems < 11){
-		//Convert to ints here, viewArray is just for convenience
-		viewArray(numberStrings, numElems);
-		convertToInts(numberStrings, numElems, numberIntegers);
-		viewIntArray(numberIntegers, numElems);
-	}else{
-		//Print error message and return -1 because array contained >10 numbers
-		printf("\nError! File contained more than 10 numbers");
-		return -1;
-	}
+	convertToInts(numberStrings, numElems, numberIntegers);
+	viewIntArray(numberIntegers, numElems);
+	//---Conversion to ints finished at this point
+
+	//Fork until single number, compare, then return result
 
 	return 0;
 }

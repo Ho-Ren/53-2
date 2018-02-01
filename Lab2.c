@@ -6,6 +6,7 @@ int fillArray(FILE *processFile, char *emptyArray[]);
 void viewArray(char *filledArray[], int numOfElems);
 void convertToInts(char *numberStrs[], int numOfStr, int numberInts[]);
 void viewIntArray(int filledArray[], int numOfInts);
+void forkSearch(int intArray[], int numOfInts, int targetNum);
 
 /*
  * Specification Changes/Updates from updated PDF
@@ -35,6 +36,7 @@ int main(int argc, char *argv[]){
 	//---Conversion to ints finished at this point
 
 	//Fork until single number, compare, then return result
+	forkSearch(numberIntegers, numElems, srchTarget);
 
 	return 0;
 }
@@ -105,4 +107,8 @@ void viewIntArray(int filledArray[], int numOfInts){
 		printf("\n[%d]: %d", i, filledArray[i]);
 	}
 	printf("\n");
+}
+
+void forkSearch(int intArray[], int numOfInts, int targetNum){
+
 }

@@ -5,6 +5,7 @@
 int fillArray(FILE *processFile, char *emptyArray[]);
 void viewArray(char *filledArray[], int numOfElems);
 void convertToInts(char *numberStrs[], int numOfStr, int numberInts[]);
+void viewIntArray(int filledArray[], int numOfInts);
 
 /*
  * Specification Changes/Updates from updated PDF
@@ -35,6 +36,7 @@ int main(int argc, char *argv[]){
 		//Convert to ints here, viewArray is just for convenience
 		viewArray(numberStrings, numElems);
 		convertToInts(numberStrings, numElems, numberIntegers);
+		viewIntArray(numberIntegers, numElems);
 	}else{
 		//Print error message and return -1 because array contained >10 numbers
 		printf("\nError! File contained more than 10 numbers");
@@ -102,4 +104,12 @@ void convertToInts(char *numberStrs[], int numOfStr, int numberInts[]){
 		numberInts[i] = atoi(currentNum);
 		printf("Conversion success: numberInts[%d]: %d\n", i, numberInts[i]);
 	}
+}
+
+void viewIntArray(int filledArray[], int numOfInts){
+	int i;
+	for(i = 0; i < numOfInts; i++){
+		printf("\n[%d]: %d", i, filledArray[i]);
+	}
+	printf("\n");
 }

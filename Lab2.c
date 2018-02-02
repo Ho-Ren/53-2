@@ -114,7 +114,7 @@ void viewIntArray(int filledArray[], int numOfInts){
 }
 
 void forkSearch(int intArray[], int numOfInts, int targetNum){
-	int mid = (numOfInts-1) / 2;
+	/*int mid = (numOfInts-1) / 2;
 	pid_t processID;
 	printf("Parent process ID: %d and current value is %d\n", getpid(), intArray[mid]);
 	if(intArray[mid] == targetNum){
@@ -126,5 +126,18 @@ void forkSearch(int intArray[], int numOfInts, int targetNum){
 		if(intArray[mid+1] == targetNum){
 			exit(1);
 		}
+	}*/
+
+	int i, status;
+	pid_t childID, wpid;
+	printf("Parent process ID: %d ", getpid());
+	for(i = 0; i < numOfInts; i++){
+		childID = fork();
+		if(childID == 0){
+			printf("pid: %d, value: %d\n", getpid(), intArray[i]);
+			exit(1);
+		}
 	}
+	while((wpid = wait(&status)) >0);
+	printf("This should print after all the child processes are done\n");
 }

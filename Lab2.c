@@ -129,15 +129,32 @@ void forkSearch(int intArray[], int numOfInts, int targetNum){
 	}*/
 
 	int i, status;
+	int exitstatus;
 	pid_t childID, wpid;
 	printf("Parent process ID: %d ", getpid());
 	for(i = 0; i < numOfInts; i++){
 		childID = fork();
 		if(childID == 0){
 			printf("pid: %d, value: %d\n", getpid(), intArray[i]);
-			exit(1);
+			if(targetNum == intArray[i]){
+				exit(i);
+			}
+			exit(0);
 		}
 	}
-	while((wpid = wait(&status)) >0);
+	//index default -1 if not found
+	int index = -1;
+	do
+	{
+		wpid = wait(&status);
+		exitstatus = WEXITSTATUS(status);
+		if(exitstatus > 1)
+		{
+			index = exitstatus;
+		}
+	}
+	while(wpid > 0);
 	printf("This should print after all the child processes are done\n");
+	printf("Exit status: %d\n", index);
+
 }

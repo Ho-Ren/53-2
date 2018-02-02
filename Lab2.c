@@ -154,7 +154,7 @@ void forkSearch(int intArray[], int numOfInts, int targetNum){
 		}
 	}
 	while(wpid > 0);
-	printf("This should print after all the child processes are done\n");
+	printf("This should print after all the child processes are done\n\n");
 	printf("Exit status: %d\n", index);
 
 }

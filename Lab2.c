@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 int fillArray(FILE *processFile, char *emptyArray[]);
 void viewArray(char *filledArray[], int numOfElems);
@@ -20,18 +21,21 @@ int main(int argc, char *argv[]){
 	FILE *inputFile;
 	int srchTarget;
 
-	inputFile = fopen(argv[1], "r");
-	srchTarget = atoi(argv[2]);
+	//inputFile = fopen(argv[1], "r");
+	//srchTarget = atoi(argv[2]);
+
+	inputFile = fopen("infile.txt", "r");
+	srchTarget = 35;
 
 	char *numberStrings[11];
-	int numElems;
-	int numberIntegers[11];
-	numElems = fillArray(inputFile, numberStrings);
-	printf("numElems: %d\n", numElems);
-	viewArray(numberStrings, numElems);
+	int numElems = 9;
+	int numberIntegers[11] = {1, 5, 6, 99, 21, 35, 53, 23, 4};
+	//numElems = fillArray(inputFile, numberStrings);
+	//printf("numElems: %d\n", numElems);
+	//viewArray(numberStrings, numElems);
 	//---File processing is done at this point
 
-	convertToInts(numberStrings, numElems, numberIntegers);
+	//convertToInts(numberStrings, numElems, numberIntegers);
 	viewIntArray(numberIntegers, numElems);
 	//---Conversion to ints finished at this point
 
@@ -110,5 +114,17 @@ void viewIntArray(int filledArray[], int numOfInts){
 }
 
 void forkSearch(int intArray[], int numOfInts, int targetNum){
-
+	int mid = (numOfInts-1) / 2;
+	pid_t processID;
+	printf("Parent process ID: %d and current value is %d\n", getpid(), intArray[mid]);
+	if(intArray[mid] == targetNum){
+		exit(1);
+	}
+	processID = fork();
+	if(processID == 0){
+		printf("Child process ID: %d and current value is %d\n", getpid(), intArray[mid+1]);
+		if(intArray[mid+1] == targetNum){
+			exit(1);
+		}
+	}
 }

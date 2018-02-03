@@ -1,3 +1,7 @@
+/* Ho-ren Kang	horenk	21397985
+ * Edwin Li		liek	10153998
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,34 +13,26 @@ void convertToInts(char *numberStrs[], int numOfStr, int numberInts[]);
 void viewIntArray(int filledArray[], int numOfInts);
 void forkSearch(int intArray[], int numOfInts, int targetNum);
 
-/*
- * Specification Changes/Updates from updated PDF
- * - no mention of returning -1 or error message when array file contains more than 10 numbers
- * - array file will supposedly always be valid (never more than 10 numbers & no characters)
- * - no error messages printed at any point
- * - our error handling now pointless
- */
 
 int main(int argc, char *argv[]){
 	FILE *inputFile;
 	int srchTarget;
 
-	//inputFile = fopen(argv[1], "r");
-	//srchTarget = atoi(argv[2]);
+	inputFile = fopen(argv[1], "r");
+	srchTarget = atoi(argv[2]);
 
-	inputFile = fopen("infile.txt", "r");
-	srchTarget = 35;
+	printf("srchTarget: %d\n", srchTarget);
 
 	char *numberStrings[11];
-	int numElems = 9;
-	int numberIntegers[11] = {1, 5, 6, 99, 21, 35, 53, 23, 4};
-	//numElems = fillArray(inputFile, numberStrings);
+	int numElems;
+	int numberIntegers[11];
+	numElems = fillArray(inputFile, numberStrings);
 	//printf("numElems: %d\n", numElems);
 	//viewArray(numberStrings, numElems);
 	//---File processing is done at this point
 
-	//convertToInts(numberStrings, numElems, numberIntegers);
-	viewIntArray(numberIntegers, numElems);
+	convertToInts(numberStrings, numElems, numberIntegers);
+	//viewIntArray(numberIntegers, numElems);
 	//---Conversion to ints finished at this point
 
 	//Fork until single number, compare, then return result
@@ -99,9 +95,9 @@ void convertToInts(char *numberStrs[], int numOfStr, int numberInts[]){
 	char *currentNum;
 	for(i = 0; i < numOfStr; i++){
 		currentNum = strdup(numberStrs[i]);
-		printf("String to be converted: %s\n", currentNum);
+		//printf("String to be converted: %s\n", currentNum);
 		numberInts[i] = atoi(currentNum);
-		printf("Conversion success: numberInts[%d]: %d\n", i, numberInts[i]);
+		//printf("Conversion success: numberInts[%d]: %d\n", i, numberInts[i]);
 	}
 }
 
@@ -137,6 +133,7 @@ void forkSearch(int intArray[], int numOfInts, int targetNum){
 		if(childID == 0){
 			printf("pid: %d, value: %d\n", getpid(), intArray[i]);
 			if(targetNum == intArray[i]){
+				printf("[i]: %d\n", i);
 				exit(i);
 			}
 			exit(0);
@@ -154,7 +151,8 @@ void forkSearch(int intArray[], int numOfInts, int targetNum){
 		}
 	}
 	while(wpid > 0);
-	printf("This should print after all the child processes are done\n\n");
-	printf("Exit status: %d\n", index);
+	//printf("This should print after all the child processes are done\n\n");
+	//printf("Exit status: %d\n", index);
+	printf("Search output: %d\n", index);
 
 }

@@ -134,7 +134,7 @@ void forkSearch(int intArray[], int numOfInts, int targetNum){
 			printf("pid: %d, value: %d\n", getpid(), intArray[i]);
 			if(targetNum == intArray[i]){
 				printf("[i]: %d\n", i);
-				exit(i);
+				exit(i + 2);
 			}
 			exit(0);
 		}
@@ -144,8 +144,8 @@ void forkSearch(int intArray[], int numOfInts, int targetNum){
 	do
 	{
 		wpid = wait(&status);
-		exitstatus = WEXITSTATUS(status);
-		if(exitstatus > 1)
+		exitstatus = WEXITSTATUS(status) - 2;
+		if(exitstatus >= 0)
 		{
 			index = exitstatus;
 		}
